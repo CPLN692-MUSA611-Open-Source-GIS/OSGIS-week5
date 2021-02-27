@@ -171,5 +171,102 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // the function passed to `ready` until the HTML document is fully loaded and all scripts have
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
-  // Do your stuff here
+// Task 1
+  $('#text-label1').text("City")
+  $('#text-label2').text("Cuisine")
+  $('#text-des').text("Description")
+  $('#text-label3').text("Address")
+  $('#number-lat').text("Latitude")
+  $('#number-lng').text("Longitude")
+  $('#number-label').text("Priciness Level")
+  $('#checkbox-label1').text("Open Right Now")
+  $('#checkbox-label2').text("High Ratings")
+  $('#color-label').text("Display Color")
+// Task 2 and 4
+  $('#text-input1').val("Philadelphia, PA").prop('disabled', false)
+  $('#text-input2').val("American").prop('disabled', false)
+  $('#text-input-des').val("Shake Shack").prop('disabled', false)
+  $('#text-input3').val("3200 Chestnut St, Philadelphia, PA 19104").prop('disabled', false)
+  $('#numeric-input').val("4").prop('disabled', false)
+  $('#numeric-input-lat').val("39.953625156701214").prop('disabled', false)
+  $('#numeric-input-lng').val("-75.18835354025329").prop('disabled', false)
+  $('#cbox-input1').prop("checked", true).prop('disabled', false)
+  $('#cbox-input2').prop("checked", true).prop('disabled', false)
+  $('#color-input').val("#DC878F").prop('disabled', false)
+// Task 3 
+  $('#my-button').click(function(e) { // Task 5
+    textField1 = { "City": $('#text-input1').val() };
+    console.log("textField1", textField1);
+
+    textField2 = { "Cuisine": $('#text-input2').val() };
+    console.log("textField2", textField2);
+
+    textField3 = { "Address": $('#text-input3').val() };
+    console.log("textField3", textField3);
+
+    numericField1 = { "Priciness": $('#numeric-input').val() };
+    console.log("numericField1", numericField1);
+
+    booleanField1 = { "OpenRightNow": $('#cbox-input1')[0].checked };
+    console.log("cbox-input1", booleanField1);
+
+    booleanField2 = { "HighRatings": $('#cbox-input2')[0].checked };
+    console.log("cbox-input2", booleanField2);
+
+    colorField = { "ColorPicked": $('#color-input').val() };
+    console.log("#color-input", colorField);
+
+    textField4 = { "Description": $('#text-input-des').val() };
+    console.log("textField4", textField4);
+
+    // Task 7
+    if ( textField4["Description"].length == 0 ) {
+      textField4["Description"] = "Default to Shake Shack"
+    } else {
+      textField4 = textField4
+    }
+
+    numericField_lat = { "Lat": $('#numeric-input-lat').val() };
+    console.log("numericField_lat", numericField_lat);
+
+    if ( numericField_lat["Lat"].length == 0 ) {
+      numericField_lat["Lat"] = "39.953625156701214"
+    } else {
+      numericField_lat = numericField_lat
+    }
+    
+    numericField_lng = { "Lng": $('#numeric-input-lng').val() };
+    console.log("numericField_lng", numericField_lng);
+
+    if ( numericField_lng["Lng"].length == 0 ) {
+      numericField_lng["Lng"] = "-75.18835354025329"
+    } else {
+      numericField_lng = numericField_lng
+    }
+
+    // Task 6
+    // var circleMarkerOptions = {
+    //  color: colorField["ColorPicked"],
+    //  fillOpacity: 1.0,
+    //};
+
+    //L.circleMarker([numericField_lat["Lat"], numericField_lng["Lng"]], icon=circleMarkerOptions)
+    //.bindPopup(textField4["Description"])
+    //.addTo(map)
+
+    // Task 8
+    var myIcon = L.divIcon({
+      className: 'leaflet-marker-icon',
+      html: "<div style='background-color:#c30b82;'></div>",
+      iconSize: [30, 42],
+      iconAnchor: [15, 42]
+    });
+    
+    L.marker([numericField_lat["Lat"], numericField_lng["Lng"]], {icon: myIcon})
+    .bindPopup(textField4["Description"])
+    .addTo(map);
+    
+  })
+
+
 });

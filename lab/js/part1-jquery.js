@@ -194,7 +194,7 @@ $(document).ready(function() {
   $('#cbox-input2').prop("checked", true).prop('disabled', false)
   $('#color-input').val("#DC878F").prop('disabled', false)
 // Task 3 
-  $('#my-button').click(function(e) { // Task 5
+  $('#my-button').text("Click").click(function(e) { // Task 5
     textField1 = { "City": $('#text-input1').val() };
     console.log("textField1", textField1);
 
@@ -245,27 +245,32 @@ $(document).ready(function() {
     }
 
     // Task 6
-    // var circleMarkerOptions = {
-    //  color: colorField["ColorPicked"],
-    //  fillOpacity: 1.0,
-    //};
+     var circleMarkerOptions = {
+     color: colorField["ColorPicked"],
+      fillOpacity: 1.0,
+    };
 
     //L.circleMarker([numericField_lat["Lat"], numericField_lng["Lng"]], icon=circleMarkerOptions)
     //.bindPopup(textField4["Description"])
     //.addTo(map)
 
     // Task 8
-    var myIcon = L.divIcon({
-      className: 'leaflet-marker-icon',
-      html: "<div style='background-color:#c30b82;'></div>",
-      iconSize: [30, 42],
-      iconAnchor: [15, 42]
-    });
-    
-    L.marker([numericField_lat["Lat"], numericField_lng["Lng"]], {icon: myIcon})
-    .bindPopup(textField4["Description"])
-    .addTo(map);
-    
+    var newIcon = L.divIcon($('.leaflet-marker-icon').css({
+      "background": colorField["ColorPicked"],
+    }))
+
+    // L.marker([numericField_lat["Lat"], numericField_lng["Lng"]], newIcon )
+    //  .bindPopup(textField4["Description"])
+    //  .addTo(map);
+
+    // Task 9
+    var plotData = function(lat, lng, des) {
+      var marker = L.marker([lat,lng], newIcon)
+      marker
+        .bindPopup(des)
+        .addTo(map);
+    }
+    plotData(numericField_lat["Lat"], numericField_lng["Lng"], textField4["Description"])
   })
 
 

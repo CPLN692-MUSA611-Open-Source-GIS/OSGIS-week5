@@ -171,5 +171,178 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // the function passed to `ready` until the HTML document is fully loaded and all scripts have
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
-  // Do your stuff here
+  // Task 1
+  $('#main-heading').text('COVID-19 Survey');
+  $('#text-label1').text('What is your name?');
+  $('#text-label2').text('What is your gender');
+  $('#text-label3').text('On which street are you living?');
+  $('#number-label').text('How old are you?');
+  $('#checkbox-label1').text('Have you ever been diagnosed as COVID-19?');
+  $('#checkbox-label2').text('Have you got a COVID-19 vaccine yet?');
+  $('#color-label').text('What color could represent the severeness of your COVID-19 symptoms? (Blue if you never had COVID-19; Red if you had COVID-19; the darker red represents more severe COVID-19 symptoms');
+  $('button').text('Personal COVID-19 Information');
+
+  //Task 2
+
+  $('#text-input1').val('Last name, First name');
+  $('#text-input2').val('ex. Female');
+  $('#text-input3').val('ex. 2930 Chestnut St');
+  $('#numeric-input').val(22);
+  $('#color-input').val('#ff0000');
+  $('#cbox-input1').prop('checked',true);
+  $('#cbox-input2').prop('checked',false);
+
+  //Task 3
+
+  var dict=[];
+  dict.push({
+    Name: $('#text-input1').val(),
+    Gender: $('#text-input2').val(),
+    Address: $('#text-input3').val(),
+    Age: $('#numeric-input').val(),
+    Covid_19: $('#cbox-input1').prop('checked'),
+    Vaccine: $('#cbox-input2').prop('checked'),
+    Severeness: $('#color-input').val()
+  })
+  var inputval = dict[0];
+  console.log(inputval)
+
+  //Task 4
+  $('#text-input1').prop('disabled',false);
+  $('#text-input2').prop('disabled',false);
+  $('#text-input3').prop('disabled',false);
+  $('#numeric-input').prop('disabled',false);
+  $('#cbox-input1').prop('disabled',false);
+  $('#cbox-input2').prop('disabled',false);
+  $('#color-input').prop('disabled',false);
+
+  //Task 5
+  $('button').click(function(){
+    var dict=[];
+    dict.push({
+    Name: $('#text-input1').val(),
+    Gender: $('#text-input2').val(),
+    Address: $('#text-input3').val(),
+    Age: $('#numeric-input').val(),
+    Covid_19: $('#cbox-input1').prop('checked'),
+    Vaccine: $('#cbox-input2').prop('checked'),
+    Severeness: $('#color-input').val()
+  });
+   var inputval = dict[0];
+   console.log(inputval)
+  });
+
+  //Task 6
+  $('#text-label2').text('Describe your COVID-19 symptoms ( if ever been diagonised)');
+  $('#text-label3').text('Latitude of the place you are living in');
+  $('#number-label').text('Longitude of the place you are living in');
+  $('#text-input2').val('');
+  $('#text-input3').val('');
+  $('#numeric-input').val(0);
+
+  $('button').click(function(){
+  var place=[];
+  place.push({
+    Lat: Number($('#text-input3').val()),
+    Lng: Number($('#numeric-input').val()),
+    Severeness: $('#color-input').val(),
+    Description: $('#text-input2').val()
+  })
+  
+  var inputplace = place[0];
+  console.log(inputplace)
+  //var latlng= L.latLng(inputplace.Lat,inputplace.Lng);
+
+  var marker = L.circleMarker([inputplace.Lat,inputplace.Lng]).bindPopup(inputplace.Description).addTo(map);
+  marker.setStyle({color:inputplace.Severeness, fillColor: inputplace.Severeness, fillOpacity: 0.8})
+
 });
+
+  
+  
+
+
+
+  
+
+
+
+
+
+  
+ 
+
+
+
+});
+
+  
+
+
+
+
+//$('button').text('Plot!');
+//  $('#color-label').text('What is the primary school color?');
+//  $('#checkbox-label2').text('Did your family attend this school?');
+//  $('#checkbox-label1').text('Are you graduating?');
+// $('#number-label').text('What year did you begin at your school?');
+//  $('#text-label3').text('Whats the address of your school?');
+//  $('#text-label2').text('Whats the name of your school?');
+//  $('#text-label1').text('Whats the title of you favorite street?');
+
+  // task 2
+//  $('#text-input1').val('ex. Walnut St');
+//  $('#text-input2').val('ex. Univ. of Pennsylvania');
+//  $('#text-input3').val('ex. 3401 Walnut St');
+//  $('#color-input').val('#999999')
+
+
+//var inputValues = $('.activeInput').map(function() {
+//  return $(this).val();
+//}).toArray();
+
+
+
+//map[$(this).attr("text-input1")] = $(this).val();
+
+
+//var dict = []; // create an empty array
+
+// dict.push({
+//      street: $('#text-input1').val(),
+//      name: $('#text-input2').val(),
+//      address: $('#text-input3').val(),
+//      color: $('#color-input').val(),
+//      startYear: $('#numeric-input').val(),
+//      isgraduating: $('#cbox-input1').prop('checked',),
+//      islegacy: $('#cbox-input2').prop('checked',),
+//      color: $('#color-input').val(),
+//  });
+
+//  dict = dict[0];
+
+
+//$( "#target" ).click(function() {
+//  alert( "Handler for .click() called." );
+//});
+
+
+//var userInput =  $('button').click( function () {
+
+  //why doesnt this return?
+    
+//    var dict = []; // create an empty array
+
+//    dict.push({
+//      lat: Number($('#text-input1').val()),
+//      lon: Number($('#text-input2').val()),
+//      desc: $('#text-input3').val(),
+//  });
+//    dict = dict[0];
+//    console.log(dict);
+//    L.marker([dict.lat,dict.lon]).addTo(map);  
+//  }
+//  )
+
+
+//marker.setStyle({fillColor: 'green'});

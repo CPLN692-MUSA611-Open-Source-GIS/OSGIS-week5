@@ -181,7 +181,7 @@ $(document).ready(function() {
   $('#checkbox-label2').text('Apartments');
   $('#color-label').text('Wall Color');
 
-  //Task 2
+  //Task 2 Set example input 
   $('#text-input1').val('406 S Croskey, Unit D');
   $('#text-input2').val('-75.179144');
   $('#text-input3').val('39.946665');
@@ -192,9 +192,9 @@ $(document).ready(function() {
 
   //Task 3
   var readInput = function(){
-    console.log($('#text-input1').val());
-    console.log(Number($('#numeric-input').val()));
-    console.log($('#cbox-input1').prop("checked"));
+    //console.log($('#text-input1').val());
+    //console.log(Number($('#numeric-input').val()));
+    //console.log($('#cbox-input1').prop("checked"));
     var input = {"Address": $('#text-input1').val(),
                  "Longitude": $('#text-input2').val(),
                   "Latitude": $('#text-input3').val(),
@@ -212,6 +212,17 @@ $(document).ready(function() {
   $('#numeric-input').prop('disabled',false)
   $('#cbox-input1').prop('disabled',false)
   $('#cbox-input2').prop('disabled',false)
+
+    //Task 9
+    var fillForm = function(entries){
+      $('#text-input1').val(entries.Address);
+      $('#text-input2').val(entries.Longitude);
+      $('#text-input3').val(entries.Latitude);
+      $('#numeric-input').val(entries.Bedroom);
+      $('#cbox-input1').prop("checked", entries.Parking);
+      $('#cbox-input2').prop("checked", entries.Apartment);
+      $("#color-input").val(entries.WallColor);
+    }
 
   //Task 5 Read in input when pressed button and
   //Task 6 Plot remove marker each time button is clicked
@@ -233,11 +244,9 @@ $(document).ready(function() {
         .bindPopup("Address: " + input.Address);
       markers.addTo(map);
     }
+    fillForm(input);
+    input2 = readInput();
+    console.log("Task 9: Are the object the same? " + _.isEqual(input,input2));
   });
-
-  //Task 9
-
-
-            
-              
+           
 });

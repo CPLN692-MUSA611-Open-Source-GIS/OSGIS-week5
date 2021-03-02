@@ -172,4 +172,103 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
   // Do your stuff here
+  // Task1: create useful labels
+  $('label#text-label1').text('Name');
+  $('label#text-label2').text('Class');
+  $('label#text-label3').text("Captain's Name");
+  $('label#number-label').text('Year Built');
+  $('label#checkbox-label1').text('Has a shepherd');
+  $('label#checkbox-label2').text('Has a doctor');
+  $('label#color-label').text("Color of captain's coat");
+  $('button').text('start')
+
+  // Task2: Setting (writing) input values
+  $('input#text-input1').val('Serenity');
+  $('input#text-input2').val('Firefly');
+  $('input#text-input3').val("Malcolm Reynolds");
+  $('input#numeric-input').val(2459);
+  $('input#cbox-input1').prop( "checked", true );
+  $('input#cbox-input2').prop( "checked", true );
+  $('input#color-input').val("#834516");
+
+  // Task 3: Getting (reading) input values
+  readInput = () => {
+    let ship = {};
+    ship.name = $('input#text-input1').val();
+    ship.class = $('input#text-input2').val();
+    ship.capName = $('input#text-input3').val();
+    ship.yearBuilt = $('input#numeric-input').val();
+    ship.lat = $('input#lat-input').val();
+    if (ship.lat == "" || ship.lat > 90 || ship.lat < -90) {
+      ship.lat = -90;
+    }
+    ship.long = $('input#long-input').val();
+    if (ship.long == "" || ship.long > 180 || ship.long < -180) {
+      ship.long = 180;
+    }
+    ship.description = $('input#desc-input').val();
+    if (ship.description == "") {
+      ship.description = "42";
+    }
+    ship.hasShepherd = $('input#cbox-input1').prop( "checked");
+    ship.hasDoctor =  $('input#cbox-input2').prop( "checked");
+    ship.colorOfCapCoat = $('input#color-input').val();
+    return ship;
+  }
+  thisShip = readInput();
+
+ 
+  // Task 4: Enable user interaction with the form
+  $('input#text-input1').prop('disabled', false);
+  $('input#text-input2').prop('disabled', false);
+  $('input#text-input3').prop('disabled', false);
+  $('input#numeric-input').prop('disabled', false);
+  $('input#cbox-input1').prop('disabled', false);
+  $('input#cbox-input2').prop('disabled', false);
+  $('input#color-input').prop('disabled', false);
+  // $('input').each(() => { 
+  //   $(this).prop("disabled", false); 
+  // });
+  
+  // Task 5-6-7
+  $('button').click(() => {
+    thisShip = readInput();
+    console.log(thisShip);
+    let shipLoc = L.circleMarker(
+      [thisShip.lat, thisShip.long], 
+      {color: thisShip.colorOfCapCoat}
+    ).bindPopup(thisShip.description);
+    shipLoc.addTo(map);
+
+    let myIcon = L.divIcon({
+      iconSize: new L.Point(30, 30),
+    });
+    setTimeout(() => L.marker(
+        [thisShip.lat, thisShip.long], 
+        {icon: myIcon}
+      ).bindPopup(thisShip.description).addTo(map), 3000)
+  })
+
+  // Task 9 ake a parametric function to fill the form out.
+  fillForm = (ship) => {
+    if (typeof ship == "object") {
+      $('input#text-input1').val(ship.name);
+      $('input#text-input2').val(ship.class);
+      $('input#text-input3').val(ship.capName);
+      $('input#numeric-input').val(ship.yearBuilt);
+      $('input#lat-input').val(ship.lat);
+      $('input#long-input').val(ship.long);
+      $('input#desc-input').val(ship.description);
+      $('input#cbox-input1').prop( "checked", ship.hasShepherd );
+      $('input#cbox-input2').prop( "checked", ship.hasDoctor );
+      $('input#color-input').val(ship.colorOfCapCoat);
+    } else {
+      alert('Invalid input for fillForm()');
+    }
+  }
+
+  fillForm(thisShip);
+  newShip = readInput();
+  console.log("fillForm() and readInput() work right", _.isEqual(thisShip, newShip));
+
 });

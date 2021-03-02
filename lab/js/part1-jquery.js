@@ -255,20 +255,16 @@ $(document).ready(function() {
     //.addTo(map)
 
     // Task 8
-    var newIcon = L.divIcon($('.leaflet-marker-icon').css({
-      "background": colorField["ColorPicked"],
-    }))
-
-    // L.marker([numericField_lat["Lat"], numericField_lng["Lng"]], newIcon )
-    //  .bindPopup(textField4["Description"])
-    //  .addTo(map);
+    var myIcon = L.divIcon({className: 'new-icon'});
 
     // Task 9
     var plotData = function(lat, lng, des) {
-      var marker = L.marker([lat,lng], newIcon)
+      var marker = L.marker([lat,lng], {icon: myIcon})
       marker
         .bindPopup(des)
         .addTo(map);
+      // Task 8
+      $('.new-icon').css({background: colorField["ColorPicked"]})
     }
     plotData(numericField_lat["Lat"], numericField_lng["Lng"], textField4["Description"])
   })

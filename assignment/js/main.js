@@ -1,40 +1,8 @@
 /* =====================
-  Lab 2, part 2 - application state
-
-  Spatial applications aren't typically as simple as putting data on a map. In
-  addition, you'll usually need to change the stored data in response to user
-  input. This lab walks you through writing a set of functions that are capable
-  of building an interactive application.
-
-  First, we'll need to write a function for loading points onto the map. Choose
-  any dataset from part1 and write a function here to download it, parse it,
-  make it into markers, and plot it. You'll know you've succeeded when you can
-  see markers on the map.
-
-  NOTE 1: When we have added markers to the map in the past, we have used a line like:
-
-       L.marker([50.5, 30.5]).addTo(map);
-
-       This is accomplishing two goals. L.marker([50.5, 30.5]) makes a marker
-       and .addTo(map) adds that marker to the map. This task differs in that
-       you are being asked to create separate functions: one to create markers
-       and one to add them to the map.
-
-  (IMPORTANT!)
-  NOTE 2: These functions are being called for you. Look to the bottom of this file
-       to see where and how the functions you are defining will be used. Remember
-       that function calls (e.g. func();) which are equal to a value (i.e. you
-       can set a var to it: var result = func();) must use the 'return' keyword.
-
-       var justOne = function() {
-         return 1;
-       }
-       var one = justOne();
+  Copied from Week4 Lab 2, part 2 - application state => task 1
 ===================== */
 
 // Use the data source URL from lab 1 in this 'ajax' function:
-var downloadData = $.ajax("http://raw.githubusercontent.com/CPLN692-MUSA611-Open-Source-GIS/datasets/master/json/philadelphia-crime-snippet.json");
-
 // Write a function to prepare your data (clean it up, organize it
 // as you like, create fields, etc)
 var parseData = function(dat) {
@@ -43,11 +11,7 @@ var parseData = function(dat) {
 
 // Write a function to use your parsed data to create a bunch of
 // marker objects (don't plot them!)
-var makeMarkers = function(dat) {
-  result = [];
-  // x = dat.map(a => result.push(L.marker({"lat": a["Lat"], "lng": a["Lng"]})))
-  x = dat.map( a => result.push(L.marker([a["Lat"], a["Lng"]]).bindPopup(a["General Crime Category"])))
-  return result };
+
 
 // Now we need a function that takes this collection of markers
 // and puts them on the map
@@ -113,11 +77,34 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 /* =====================
  CODE EXECUTED HERE!
 ===================== */
+// var markers = []
+$(document).ready(function() {
+  $('#my-button').click(function(e) {
+    // Define variables from user input
+    url_text = $('#text-input1').val();
+    console.log("url:", url_text);
 
-downloadData.done(function(data) {
-  var parsed = parseData(data);
-  var parsed = filterData(parsed); //filtered down data
-  var markers = makeMarkers(parsed);
-  plotMarkers(markers);
-  // removeMarkers(markers);
-});
+    lat_key_text = $('#text-input2').val();
+    console.log("lat_key_text:", lat_key_text);
+
+    lng_key_text = $('#text-input3').val();
+    console.log("lng_key_text:", lng_key_text);
+
+    // Prepare for execution
+    var downloadData = $.ajax(url_text);
+    var makeMarkers = function(dat) {
+      result = [];
+      // x = dat.map(a => result.push(L.marker({"lat": a["Lat"], "lng": a["Lng"]})))
+      x = dat.map( a => result.push(L.marker([a[lat_key_text], a[lng_key_text]])))
+      return result };
+
+    // Function execution
+    downloadData.done(function(data) {
+      var parsed = parseData(data);
+      // removeMarkers(markers)
+      _.tail(Object.values(map._layers)).forEach(a => map.removeLayer(a))
+      markers = makeMarkers(parsed);
+      plotMarkers(markers);
+    });
+  })
+})

@@ -172,4 +172,42 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
   // Do your stuff here
+
+  //Task 1
+  $("h1#main-heading").text("Planning Your Trips")
+  $("label#text-label1").text("Your Neighborhood Name")
+  $("label#text-label2").text("Your Street Name")
+  $("label#text-label3").text("Your Destination")
+  $("label#number-label").text("Your Planned Hour (0-24)")
+  $("label#checkbox-label1").text("Private Transportation")
+  $("label#checkbox-label2").text("Public Transportation")
+  $("label#color-label").text("Favorite Color Type")
+  $("button").text("START")
+
+  //Task 2
+  $("input#text-input1").val("eg.Center City")
+  $("input#text-input2").val("eg.Chestnut Street")
+  $("input#text-input3").val("eg.Weitzman School")
+  $("input#numeric-input").val(2)
+  $("input#cbox-input1").prop( "checked", false)
+  $("input#cbox-input2").prop( "checked", true)
+  $("input#color-input").val("#33f1ff")
+
+  //Task 3
+  userInput = () => {
+    let info = {}
+    info.neighborhoodName = $("input#text-input1").val()
+    info.streetName = $("input#text-input2").val()
+    info.destination = $("input#text-input3").val()
+    info.hour = $("input#numeric-input").val()
+    info.private = $("input#cbox-input1").prop("checked")
+    info.public = $("input#cbox-input2").prop("checked")
+    info.color = $("input#color-input").val("#33f1ff")
+    return info
+  }
+
+  userInfo = userInput()
+  console.log(userInfo)
+
+
 });

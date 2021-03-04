@@ -191,7 +191,7 @@ $(document).ready(function() {
   $("input#numeric-input").val(2)
   $("input#cbox-input1").prop( "checked", false)
   $("input#cbox-input2").prop( "checked", true)
-  $("input#color-input").val("#33f1ff")
+  $("input#color-input").val("#028892")
 
   //Task 3
   userInput = () => {
@@ -202,12 +202,13 @@ $(document).ready(function() {
     info.hour = $("input#numeric-input").val()
     info.private = $("input#cbox-input1").prop("checked")
     info.public = $("input#cbox-input2").prop("checked")
-    info.color = $("input#color-input").val("#33f1ff")
+    info.color = $("input#color-input").val()
+    info.long = $("input#long").val()
+    info.lat = $("input#lat").val()
+    info.description = $("input#description").val()
     return info
   }
 
-  userInfo = userInput()
-  console.log(userInfo)
 
   //Task 4
   $("input#text-input1").prop('disabled', false)
@@ -218,5 +219,24 @@ $(document).ready(function() {
   $("input#cbox-input2").prop('disabled', false)
   $("input#color-input").prop('disabled', false)
 
+  
+  //Task 5-6
 
+  //Add coordination inputs
+  //reference:https://stackoverflow.com/questions/9173182/add-remove-input-field-dynamically-with-jquery
+  $("button").remove() //remove button at first to append coordinations
+  $("div.sidebar").append('<br><label id="coord" for="long">Longitude</label><input id="long" class="coordination" type="numeric" value="-75.165222"/>')
+  $("div.sidebar").append('<br><br><label id="coord" for="lat">Latitdude</label><input id="lat" class="coordination" type="numeric" value="39.952583"/>')
+  $("div.sidebar").append('<br><br><label id="txt" for="description">Latitdude</label><input id="description" class="des-info" type="text" value="Philly Center"/>')
+  $("div.sidebar").append('<br><br><button>START</button>')
+
+  
+  $( "button" ).click(function() {
+    userInfo = userInput();
+    console.log(userInfo)
+    L.circleMarker([userInfo.lat, userInfo.long], {color:userInfo.color})
+    .bindPopup(userInfo.description).addTo(map)
+  });
+
+  
 });

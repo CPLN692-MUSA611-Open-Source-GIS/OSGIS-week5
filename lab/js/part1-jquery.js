@@ -209,5 +209,14 @@ $(document).ready(function() {
   userInfo = userInput()
   console.log(userInfo)
 
+  //Task 4
+  $("input#text-input1").prop('disabled', false)
+  $("input#text-input2").prop('disabled', false)
+  $("input#text-input3").prop('disabled', false)
+  $("input#numeric-input").prop('disabled', false)
+  $("input#cbox-input1").prop('disabled', false)
+  $("input#cbox-input2").prop('disabled', false)
+  $("input#color-input").prop('disabled', false)
+
 
 });

@@ -172,4 +172,29 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
   // Do your stuff here
+  // call the items from the HTML using the ids and rename the 
+  //pt 1
+  $('#text-label1').text('Neighborhood')
+  $('#text-label2').text('Type of food')
+  $('#text-label3').text('Owner')
+  $('#number-label').text('Time of day opens')
+  $('#checkbox-label1').text('Outdoor seating')
+  $('#checkbox-label2').text('Pet friendly')
+  $('#color-label').text('Building color')
+
+  // pt 2
+  $('#text-input1').val('Center City')
+  $('#text-input2').val('American')
+  $('#text-input3').val('Starr')
+  $('#numeric-input').val('5')
+  $('#cbox-input1').prop("checked", true)
+  $('#cbox-input2').prop("checked", true)
+  $('#color-input').val("#ff4000")
+
+  // Task 3: Getting (reading) input values
+  // Write the code necessary to read from your input form and return a javascript object (with keys
+  //  to clarify the meaning of each value) that has all the data that's stored in your form.
+
+
+
 });

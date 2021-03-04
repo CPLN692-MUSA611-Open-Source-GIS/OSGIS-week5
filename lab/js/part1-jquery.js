@@ -219,7 +219,7 @@ function plot_func (){
   if (long< -180 || long> 180 || isNaN(long) || long === "") {
     long = -75.1639
   }
-  L.circleMarker([lat,long],{color:$('#color-input').val(), icon: myIcon}).bindPopup($('#text-input3').val()).addTo(map)
+  L.circleMarker([lat,long],{color:$('#color-input').val()}).bindPopup($('#text-input3').val()).addTo(map)
 }
 $('button').click(plot_func)
 

@@ -172,4 +172,71 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
   // Do your stuff here
+
+$('#main-heading').text('Target Location')
+$('#text-label1').text('Lat')
+$('#text-label2').text('Long')
+$('#text-label3').text('Description')
+$('#number-label').text('Number of Entry')
+$('#checkbox-label1').text('Outside US')
+$('#checkbox-label2').text('English Speaking')
+$('#color-label').text('Marker Color')
+$('button').text("Plot")
+
+//task 3
+function log_func (){
+  keys = [$('#text-label1').text(),$('#text-label2').text(),$('#text-label3').text(),$('#number-label').text(),
+  $('#checkbox-label1').text(),$('#checkbox-label2').text(),$('#color-label').text()]
+  values = [$('#text-input1').val(),$('#text-input2').val(),$('#text-input3').val(),$('#numeric-input').val(),
+  $('#cbox-input1')[0].checked,$('#cbox-input2')[0].checked,$('#color-input').val()]
+  form = _.object(keys,values)
+  return form
+}
+
+//task 4
+$('#text-input1').prop('disabled', false)
+$('#text-input2').prop('disabled', false)
+$('#text-input3').prop('disabled', false)
+$('#numeric-input').prop('disabled', false)
+$('#cbox-input1').prop('disabled', false)
+$('#cbox-input2').prop('disabled', false)
+$('#color-input').prop('disabled', false)
+
+// //task 5
+// $('button').click(log_func)
+
+//task 8
+myIcon = L.divIcon ()
+$('.leaflet-marker-icon')
+
+//task 6 + 7
+function plot_func (){
+  lat = $('#text-input1').val()
+  long = $('#text-input2').val()
+  if (lat< -90 || lat> 90 || isNaN(lat) || lat === "") {
+    lat = 39.9522
+  }
+  if (long< -180 || long> 180 || isNaN(long) || long === "") {
+    long = -75.1639
+  }
+  L.circleMarker([lat,long],{color:$('#color-input').val()}).bindPopup($('#text-input3').val()).addTo(map)
+}
+$('button').click(plot_func)
+
+//task 9
+function repopulate (){
+  form_out = log_func()
+  $('#text-input1').val(form_out[Object.keys(form_out)[0]])
+  $('#text-input2').val(form_out[Object.keys(form_out)[1]])
+  $('#text-input3').val(form_out[Object.keys(form_out)[2]])
+  $('#numeric-input').val(form_out[Object.keys(form_out)[3]])
+  $('#cbox-input1')[0].checked = form_out[Object.keys(form_out)[4]]
+  $('#cbox-input2')[0].checked = form_out[Object.keys(form_out)[5]]
+  $('#color-input').val(form_out[Object.keys(form_out)[6]])
+  form_in = log_func()
+  console.log ("Succeed:" + _.isEqual(form_out,form_in))
+}
+
+$('button').click(repopulate)
+
 });

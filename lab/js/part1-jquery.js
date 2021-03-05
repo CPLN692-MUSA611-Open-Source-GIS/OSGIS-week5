@@ -115,7 +115,7 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
     this, we can use another jQuery method: 'prop'.
 
     Here's a simple, disabled input field:
-    <input id="someInput" type="number" disabled>
+    <inputt id="someInput" type="number" disabled>
 
     You can see in this HTML that the input field is disabled. You could also see this by querying
     that property's value through jQuery:
@@ -172,4 +172,81 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
   // Do your stuff here
+  //Task 1
+  $('#text-label1').text('Address');
+  $('#text-label2').text('Longitude');
+  $('#text-label3').text('Latitude');
+  $('#number-label').text('Number of Bedrooms');
+  $('#checkbox-label1').text('Has parking');
+  $('#checkbox-label2').text('Apartments');
+  $('#color-label').text('Wall Color');
+
+  //Task 2 Set example input 
+  $('#text-input1').val('406 S Croskey, Unit D');
+  $('#text-input2').val('-75.179144');
+  $('#text-input3').val('39.946665');
+  $('#numeric-input').val('2');
+  $('#cbox-input1').prop("checked", true);
+  $('#cbox-input2').prop("checked", true);
+  $("#color-input").val("#B7E326");
+
+  //Task 3
+  var readInput = function(){
+    //console.log($('#text-input1').val());
+    //console.log(Number($('#numeric-input').val()));
+    //console.log($('#cbox-input1').prop("checked"));
+    var input = {"Address": $('#text-input1').val(),
+                 "Longitude": $('#text-input2').val(),
+                  "Latitude": $('#text-input3').val(),
+                  "Bedroom": Number($('#numeric-input').val()),
+                  "Parking": $('#cbox-input1').prop("checked"),
+                  "Apartment": $('#cbox-input2').prop("checked"),
+                  "WallColor": $('#color-input').val()};
+    return input;
+  };
+
+  //Task 4 enable input
+  $('#text-input1').prop('disabled',false)
+  $('#text-input2').prop('disabled',false)
+  $('#text-input3').prop('disabled',false)
+  $('#numeric-input').prop('disabled',false)
+  $('#cbox-input1').prop('disabled',false)
+  $('#cbox-input2').prop('disabled',false)
+
+    //Task 9
+    var fillForm = function(entries){
+      $('#text-input1').val(entries.Address);
+      $('#text-input2').val(entries.Longitude);
+      $('#text-input3').val(entries.Latitude);
+      $('#numeric-input').val(entries.Bedroom);
+      $('#cbox-input1').prop("checked", entries.Parking);
+      $('#cbox-input2').prop("checked", entries.Apartment);
+      $("#color-input").val(entries.WallColor);
+    }
+
+  //Task 5 Read in input when pressed button and
+  //Task 6 Plot remove marker each time button is clicked
+  //Task 7 Plot a marker at city hall if lng or lat is missing
+  //Task 8 use divIcon when missing longitude or latitude 
+  var markers = [];
+  $('button').click(function(e){
+    map.removeLayer(markers);
+    input = readInput();
+    console.log(input);
+    if(input.Longitude === "" || input.Latitude === ""){
+      console.log("yay");
+      var myIcon = L.divIcon();
+      markers = L.marker([39.952288,-75.163689],{icon: myIcon})
+        .bindPopup("Missing latitude or longitude");
+      markers.addTo(map);
+    }else{
+      markers = L.circleMarker([input.Latitude,input.Longitude],{color: input.WallColor})
+        .bindPopup("Address: " + input.Address);
+      markers.addTo(map);
+    }
+    fillForm(input);
+    input2 = readInput();
+    console.log("Task 9: Are the object the same? " + _.isEqual(input,input2));
+  });
+           
 });

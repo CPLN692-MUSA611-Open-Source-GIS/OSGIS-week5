@@ -176,7 +176,7 @@ $(document).ready(function() {
   //pt 1
   $('#text-label1').text('Latitude')
   $('#text-label2').text('Longitude')
-  $('#text-label3').text('Type of food')
+  $('#text-label3').text('Description')
   $('#number-label').text('Time of day opens')
   $('#checkbox-label1').text('Outdoor seating')
   $('#checkbox-label2').text('Pet friendly')
@@ -185,7 +185,7 @@ $(document).ready(function() {
   // pt 2
   $('#text-input1').val('Latitude Value')
   $('#text-input2').val('Longitude Value')
-  $('#text-input3').val('American')
+  $('#text-input3').val('Describe it')
   $('#numeric-input').val('5')
   $('#cbox-input1').prop("checked", true)
   $('#cbox-input2').prop("checked", true)
@@ -199,7 +199,7 @@ $(document).ready(function() {
     var input = {
       lat: $('#text-input1').val(),
       lng: $('#text-input2').val(), 
-      typeFood: $('#text-input3').val(),
+      descrip: $('#text-input3').val(),
       timeOpen: $('#numeric-input').val(),
       outdoorSeat: $('#cbox-input1').prop('checked'),
       pet: $('#cbox-input2').prop('checked'),
@@ -222,17 +222,24 @@ $('#cbox-input2').prop('disabled',false)
 
 // Task 5-6: Add a button trigger to log this form's object to console
 $('button').click(function(e) {
+  if ($('#text-input1').val()=== "") {$('#text-input1').val(39.94405440404112);}
+  if ($('#text-input2').val()=== "") {$('#text-input2').val(-75.16556140272027);}
+  if ($('#text-input3').val()=== "") {$('#text-input3').val("Lombard/South Station");}
 
   var userInput = readInput();
   console.log(userInput);
 
-  var userIcon = L.circleMarker(
-    [userInput.lat, userInput.lng], 
-    {color: userInput.color}
-  ).bindPopup(userInput.typeFood);
-  userIcon.addTo(map);
-  
-});
+  // var userIcon = L.circleMarker(
+  //   [userInput.lat, userInput.lng], 
+  //   {color: userInput.color}
+  // ).bindPopup(userInput.descrip);
+  // userIcon.addTo(map);
 
+  var myIcon = L.divIcon({
+    className: 'leaflet-marker-icon'
+  });
+  
+  L.marker([userInput.lat, userInput.lng], {icon: myIcon}).addTo(map).bindPopup(userInput.descrip)
+  })
 
 });

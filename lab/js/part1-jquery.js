@@ -172,4 +172,94 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
   // Do your stuff here
+  // call the items from the HTML using the ids and rename the 
+  //pt 1
+  $('#text-label1').text('Latitude')
+  $('#text-label2').text('Longitude')
+  $('#text-label3').text('Description')
+  $('#number-label').text('Time of day opens')
+  $('#checkbox-label1').text('Outdoor seating')
+  $('#checkbox-label2').text('Pet friendly')
+  $('#color-label').text('Building color')
+
+  // pt 2
+  $('#text-input1').val('Latitude Value')
+  $('#text-input2').val('Longitude Value')
+  $('#text-input3').val('Describe it')
+  $('#numeric-input').val('5')
+  $('#cbox-input1').prop("checked", true)
+  $('#cbox-input2').prop("checked", true)
+  $('#color-input').val("#ff4000")
+
+  // Task 3: Getting (reading) input values
+  // Write the code necessary to read from your input form and return a javascript object (with keys
+  //  to clarify the meaning of each value) that has all the data that's stored in your form.
+
+  function readInput(){
+    var input = {
+      lat: $('#text-input1').val(),
+      lng: $('#text-input2').val(), 
+      descrip: $('#text-input3').val(),
+      timeOpen: $('#numeric-input').val(),
+      outdoorSeat: $('#cbox-input1').prop('checked'),
+      pet: $('#cbox-input2').prop('checked'),
+      color: $('#color-input').val()
+    }
+    
+    return input;
+  }
+
+console.log(readInput());
+
+// Task 4: Enable user interaction with the form
+$('#text-input1').prop('disabled',false)
+$('#text-input2').prop('disabled',false)
+$('#text-input3').prop('disabled',false)
+$('#numeric-input').prop('disabled',false)
+$('#cbox-input1').prop('disabled',false)
+$('#cbox-input2').prop('disabled',false)
+
+// Task 9 function
+var fillForm = function(userVal){
+  $('#text-input1').val(userVal.lat);
+  $('#text-input2').val(userVal.lng);
+  $('#text-input3').val(userVal.descrip);
+  $('#numeric-input').val(userVal.timeOpen);
+  $('#cbox-input1').prop("checked", userVal.outdoorSeat);
+  $('#cbox-input2').prop("checked", userVal.pet);
+  $("#color-input").val(userVal.color);
+}
+
+// Task 5-9: Add a button trigger to log this form's object to console
+$('button').click(function(e) {
+  if ($('#text-input1').val()=== "" || isNaN ($('#text-input1').val())) {$('#text-input1').val(39.94405440404112);}
+  if ($('#text-input2').val()=== "" || isNaN ($('#text-input2').val())) {$('#text-input2').val(-75.16556140272027);}
+  if ($('#text-input3').val()=== "" || isNaN ($('#text-input3').val())) {$('#text-input3').val("Lombard/South Station");}
+
+  var userInput = readInput();
+  console.log(userInput);
+
+  // Archived circle marker code
+
+  // var userIcon = L.circleMarker(
+  //   [userInput.lat, userInput.lng], 
+  //   {color: userInput.color}
+  // ).bindPopup(userInput.descrip);
+  // userIcon.addTo(map);
+
+  // This icon is defined in the HTML
+  var myIcon = L.divIcon({
+    className: 'leaflet-marker-icon'
+  });
+  
+  L.marker([userInput.lat, userInput.lng], {icon: myIcon}).addTo(map).bindPopup(userInput.descrip)
+
+  fillForm(userInput);
+  inputOut = readInput();
+  console.log("Check objects in/out are same: " + _.isEqual(userInput,inputOut));
+  })
+
+  
+  
+
 });

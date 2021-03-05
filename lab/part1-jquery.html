@@ -7,11 +7,17 @@
     Edit css/style.css
     ====================== -->
     <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .leaflet-marker-icon{
+        background-color:forestgreen;
+        opacity: 0.9;
+      }
+    </style>
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
-      <h1 id="main-heading">Main Heading</h1>
+      <h1 id="main-heading">PHL Restaurants</h1>
       <label id="text-label1" for="text-input1">This is the first text input</label>
       <input id="text-input1" class="input-text" type="text" placeholder="text here" value="some title" disabled>
       <br>
@@ -40,7 +46,7 @@
       <label id="color-label" for="color-input">This is a color input</label>
       <input type="color" id="color-input">
       <br>
-      <button>A Button</button>
+      <button>Go!</button>
     </div>
     <!-- Map -->
     <div id="map" class="map"></div>

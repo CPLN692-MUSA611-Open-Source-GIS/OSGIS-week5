@@ -171,5 +171,78 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // the function passed to `ready` until the HTML document is fully loaded and all scripts have
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
-  // Do your stuff here
+  $('#text-label1').text('What\'s the name of your favorite street?');
+  $('#text-label2').text('What\'s the name of your school?');
+  $('#text-label3').text('What\'s the address of your school?');
+  $('#number-label1').text('What year did you started the school?');
+  $('#checkbox-label1').text('Are you graduating?');
+  $('#checkbox-label2').text('Did your family attend this school?');
+  $('#color-label').text('what is the school color?');
+  $('button'.text('Submit'));
+  // task 2
+  $('#text-input1').val("example: Market St.");
+  $('#text-input2').val("example: University of Pennsylvania");
+  $('#text-input3').val("example: 3401 Walnut St.");
+  $('#numeric-input').val("example: 2019");
+  $('#color-input').val('#999999');
+  // task 3
+  var dict = []; // create an empty array
+
+  dict.push({
+      street: $('#text-input1').val(),
+      name: $('#text-input2').val(),
+      address: $('#text-input3').val(),
+      color: $('#color-input').val(),
+      startYear: $('#numeric-input').val(),
+      isgraduating: $('#cbox-input1').prop('checked',),
+      islegacy: $('#cbox-input2').prop('checked',),
+      color: $('#color-input').val(),
+  });
+
+  dict = dict[0];
+  //task 4
+  $('#text-input1').prop('disabled', false);
+  $('#text-input2').prop('disabled', false);
+  $('#text-input3').prop('disabled', false);
+  $('#numeric-input').prop('disabled', false);
+  $('#cbox-input1').prop('disabled', false);
+  $('#cbox-input2').prop('disabled', false);
+  //task 5
+  $( "button" ).click(function() {
+    console.log(dict);
+    return dict;
+});
+  //task 6
+  $('#text-label1').text('the latitude?');
+  $('#text-label2').text('the longitude?');
+  $('#text-label3').text('describe the place?');
+  $('#color-label').text('what is the marker color?');
+
+  $('#text-input1').val();
+  $('#text-input2').val();
+  $('#text-input3').val();
+  $('#color-input').val('#999999');
+
+  var greenIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
+  var userinput = $( "button" ).click(function() {
+    var dict = [];
+    dict.push({
+      lat: $('#text-input1').val(),
+      lon: $('#text-input2').val(),
+      desc: $('#text-input3').val(),
+    })
+    dict = dict[0];
+    console.log(dict);
+    L.marker([dict.lat, dict.lon], {icon: greenIcon}).addTo(map);
+});
+  //task 7
+
 });

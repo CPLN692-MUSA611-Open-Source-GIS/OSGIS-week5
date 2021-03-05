@@ -193,7 +193,7 @@ $(document).ready(function() {
   $("input#cbox-input2").prop( "checked", true)
   $("input#color-input").val("#028892")
 
-  //Task 3
+  //Task 3 + Task 7
   userInput = () => {
     let info = {}
     info.neighborhoodName = $("input#text-input1").val()
@@ -206,6 +206,19 @@ $(document).ready(function() {
     info.long = $("input#long").val()
     info.lat = $("input#lat").val()
     info.description = $("input#description").val()
+
+    //assign default value
+    if (info.neighborhoodName == "") {info.neighborhoodName = "Center City"}
+    if (info.streetName == "") {info.streetName = "Chestnut Street"}
+    if (info.destination == "") {info.destination = "Weitzman School"}
+    if (info.hour == "") {info.hour = 2}
+    if (info.private == "") {info.private = false}
+    if (info.public == "") {info.public = true}
+    if (info.color == "") {info.color = "#028892"}
+    if (info.long == "") {info.long = -75.165222}
+    if (info.lat == "") {info.lat = 39.952583}
+    if (info.description == "") {info.description = "Philly Center"}
+
     return info
   }
 
@@ -220,23 +233,47 @@ $(document).ready(function() {
   $("input#color-input").prop('disabled', false)
 
   
-  //Task 5-6
+  //Task 5-6 + Task8
 
   //Add coordination inputs
   //reference:https://stackoverflow.com/questions/9173182/add-remove-input-field-dynamically-with-jquery
   $("button").remove() //remove button at first to append coordinations
   $("div.sidebar").append('<br><label id="coord" for="long">Longitude</label><input id="long" class="coordination" type="numeric" value="-75.165222"/>')
   $("div.sidebar").append('<br><br><label id="coord" for="lat">Latitdude</label><input id="lat" class="coordination" type="numeric" value="39.952583"/>')
-  $("div.sidebar").append('<br><br><label id="txt" for="description">Latitdude</label><input id="description" class="des-info" type="text" value="Philly Center"/>')
+  $("div.sidebar").append('<br><br><label id="txt" for="description">Description</label><input id="description" class="des-info" type="text" value="Philly Center"/>')
   $("div.sidebar").append('<br><br><button>START</button>')
 
   
   $( "button" ).click(function() {
     userInfo = userInput();
     console.log(userInfo)
+    //add divIcon
+    var myIcon = L.divIcon({className: 'leaflet-marker-icon', html: '<b>Destination</b>'});
+
     L.circleMarker([userInfo.lat, userInfo.long], {color:userInfo.color})
+    .bindPopup(userInfo.description).addTo(map)
+
+    L.marker([userInfo.lat, userInfo.long], {icon: myIcon})
     .bindPopup(userInfo.description).addTo(map)
   });
 
-  
+  //Task 9
+  let fillForm = (inputs) => {
+    $("input#text-input1").val(inputs.neighborhoodName)
+    $("input#text-input2").val(inputs.streetName)
+    $("input#text-input3").val(inputs.destination)
+    $("input#numeric-input").val(inputs.hour)
+    $("input#cbox-input1").prop("checked", inputs.private)
+    $("input#cbox-input2").prop("checked", inputs.public)
+    $("input#color-input").val(inputs.color)
+    $("input#long").val(inputs.long)
+    $("input#lat").val(inputs.lat)
+    $("input#description").val(inputs.description)
+  }
+
+  userInfo = userInput()
+  fillForm(userInfo)
+  userInfo2 = userInput()
+  console.log("Functions work appropriately", _.isEqual(userInfo, userInfo2))
+
 });

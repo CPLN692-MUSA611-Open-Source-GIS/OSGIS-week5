@@ -171,5 +171,105 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // the function passed to `ready` until the HTML document is fully loaded and all scripts have
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
+
   // Do your stuff here
+  $('#text-label1').text('Latitude');
+  $("#text-label2").text('Longitude');
+  $("#text-label3").text('Street Name');
+  $("#number-label").text('Address Number');
+  $("#checkbox-label1").text('Is this your permanent address?');
+  $("#checkbox-label2").text('Is this your billing address?');
+  $("#color-label").text('House Color');
+  $('#text-input1').val("00.0000")
+  $('#text-input2').val("00.0000")
+  $('#text-input3').val("Street Name")
+  $('#numeric-input').val(0000)
+  $('#cbox-input1').prop("checked",false)
+  $('#cbox-input2').prop("checked",false)
+  $("#color-input").val('#AAAAAA')
+
+
+  var dict = []; // create an empty array
+
+  dict.push({
+    lat: $('#text-input1').val(),
+    long: $('#text-input2').val(),
+    addressstreet: $('#text-input3').val(),
+    addressnumber: $('#numeric-input').val(),
+    isgraduating: $('#cbox-input1').prop('checked'),
+    islegacy: $('#cbox-input2').prop('checked'),
+    color: $('#color-input').val()
+
+
+  });
+dict = dict[0]
+console.log(dict)
+
+//disable disable to allow user input
+$('#text-input1').prop('disabled', false);
+$('#text-input2').prop('disabled', false);
+$('#text-input3').prop('disabled', false);
+$('#numeric-input').prop('disabled', false);
+$('#cbox-input1').prop('disabled', false);
+$('#cbox-input2').prop('disabled', false);
+$("#color-input").prop('disabled', false);
+
+//saving user data in an object
+$('button').click( function () {
+    
+  var dict = []; // create an empty array
+
+  dict.push({
+    lat: $('#text-input1').val(),
+    long: $('#text-input2').val(),
+    addressstreet: $('#text-input3').val(),
+    addressnumber: $('#numeric-input').val(),
+    isgraduating: $('#cbox-input1').prop('checked'),
+    islegacy: $('#cbox-input2').prop('checked'),
+    color: $('#color-input').val()
 });
+  dict = dict[0];
+  console.log(dict);
+return dict})
+
+
+
+ //plotting when button is pushed
+// }
+// )
+var userInput =  $('button').click( function () {
+
+    
+    var dict = []; // create an empty array
+
+    dict.push({
+      lat: Number($('#text-input1').val()),
+      lon: Number($('#text-input2').val()),
+      color: $('#color-input').val(),
+      num: $('#numeric-input').val(),
+      desc: $('#text-input3').val(),
+  });
+    dict = dict[0];
+    console.log(dict);
+    //original
+    // L.circleMarker([dict.lat,dict.lon], {color: dict.color}).bindPopup(dict.num + " "+ dict.desc).addTo(map);
+
+    
+    var myIcon = L.divIcon({className: 'my-div-icon'});
+    // you can set .my-div-icon styles in CSS
+
+  $('')
+  L.marker([dict.lat,dict.lon], {icon:myIcon}).bindPopup(dict.num + " "+ dict.desc).addTo(map);
+  $('.my-div-icon').css({backgroundColor: dict.color,})
+
+  myIcon = L.divIcon ()
+  }
+  )
+
+
+  // {icon: L.icon({  //load icon for dentist
+  //   iconColor: 'green', iconSize: [25, 25]})}
+
+});
+
+

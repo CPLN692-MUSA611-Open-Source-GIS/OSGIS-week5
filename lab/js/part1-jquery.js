@@ -95,6 +95,8 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
     favorite color. Don't spend too much time on thinking about the perfect object to represent with
     this form, just about anything will do.
 
+
+
   Task 2: Setting (writing) input values
     *NOTE*: An input's value is not the same as an HTML element's text. We use $(selector).val() as
             opposed to $(selector).text() in this case.
@@ -172,4 +174,169 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
   // Do your stuff here
+
+
+// Task 1 
+
+$('button').text('Plot!');
+$('#color-label').text('What is the primary school color?');
+$('#checkbox-label2').text('Did your family attend this school?');
+$('#checkbox-label1').text('Are you graduating?');
+$('#number-label').text('What year did you begin at your school?');
+$('#text-label3').text('Whats the address of your school?');
+$('#text-label2').text('Whats the name of your school?');
+$('#text-label1').text('Whats the title of you favorite street?');
+
+// task 2
+$('#text-input1').val('ex. Walnut St');
+$('#text-input2').val('ex. Univ. of Pennsylvania');
+$('#text-input3').val('ex. 3401 Walnut St');
+$('#color-input').val('#999999')
+
+var place = []; 
+place[$('#text-input1').attr('#text-input1')] = $('text-input1').val(); 
+
+// task 3
+
+var dict = []; // create an empty array
+
+dict.push({
+    street: $('#text-input1').val(),
+    name: $('#text-input2').val(),
+    address: $('#text-input3').val(),
+    color: $('#color-input').val(),
+    startyear: $('#number-label').val(), 
+    isGraduating: $('#cbox-input1').prop('checked'), 
+    isLegacy: $('#cbox-label2').prop('checked'), 
+    color: $('#color-input').val(), 
 });
+
+dict = dict[0];
+
+// Task 4
+$('#text-input1').prop('disabled', false);
+$('#text-input2').prop('disabled', false);
+$('#text-input3').prop('disabled', false);
+$('#numeric-input').prop('disabled', false);
+$('#cbox-input1').prop('disabled', false);
+$('#cbox-input2').prop('disabled', false);
+
+
+// $('button').click( function () {
+    
+//   var array = []; // create an empty array
+
+//   array.push({
+//     street: $('#text-input1').val(),
+//     name: $('#text-input2').val(),
+//     address: $('#text-input3').val(),
+//     color: $('#color-input').val(),
+//     startYear: $('#numeric-input').val(),
+//     isgraduating: $('#cbox-input1').prop('checked'),
+//     islegacy: $('#cbox-input2').prop('checked'),
+//     color: $('#color-input').val(),
+
+// }
+// )
+// array = array[0];
+//   console.log(array);
+//   return array;
+
+// } 
+// ) 
+
+  // Part 6 and
+
+  $('#text-label1').text('Enter a Latitude');
+  $('#text-label2').text('Enter a Longitude');
+  $('#text-label3').text('Enter a Description of this Site');
+  
+  $('#color-label').text('What is Your favorite Color?');
+
+  $('button').click( function () {
+
+
+    var array = []; // create an empty array
+  
+    array.push({
+      
+      lat: Number($('#text-input1').val()),
+      long: Number($('#text-input2').val()),
+      desc: $('#text-input3').val(),
+      color: $('#color-input').val(),
+  }
+  )
+// For some reason no answer is already degaulting at 0? 
+
+  array = array[0];
+  
+  myIcon = L.divIcon ()
+  $('.leaflet-marker-icon')
+
+  
+  if (isNaN(array.long) || array.long === "" || array.long === 0) {
+    array.long = 44.475902745011815
+  }
+
+  if (isNaN(array.lat) || array.lat === "" || array.lat === 0) {
+    array.lat = -73.21283500854798
+  }
+
+    console.log(array);
+
+  // L.circleMarker([array.lat,array.long],{color:array.color, icon: myIcon}).bindPopup(array.desc).addTo(map)
+
+
+  
+
+
+     L.circleMarker([(array.long), (array.lat)], {
+      color: array.color,
+      fillColor: array.color,
+      fillOpacity: 0.5,
+  }).addTo(map)
+
+    // L.marker([Number(array.long),Number(array.lat)]).addTo(map);
+  
+  } 
+  ) 
+// Part 8
+
+var object = {lat: Number($('#text-input1').val()),
+    long: Number($('#text-input2').val()),
+    desc: $('#text-input3').val(),
+    color: $('#color-input').val()}
+
+
+var form = (input) => { 
+  form_out = []
+
+
+  form_out.push({ 
+
+    [Object.keys(input)[0]] : input[Object.keys(input)[0]],
+    [Object.keys(input)[1]]: input[Object.keys(input)[1]],
+    [Object.keys(input)[2]]: input[Object.keys(input)[2]],
+    [Object.keys(input)[3]]: input[Object.keys(input)[3]]}) 
+
+
+  form_in = input
+  console.log ("Succeed:" + _.isEqual(form_out,form_in))
+
+}
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+

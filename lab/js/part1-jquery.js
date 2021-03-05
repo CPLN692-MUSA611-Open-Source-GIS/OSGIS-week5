@@ -219,15 +219,27 @@ $('#numeric-input').prop('disabled',false)
 $('#cbox-input1').prop('disabled',false)
 $('#cbox-input2').prop('disabled',false)
 
+// Task 9 function
+var fillForm = function(userVal){
+  $('#text-input1').val(userVal.lat);
+  $('#text-input2').val(userVal.lng);
+  $('#text-input3').val(userVal.descrip);
+  $('#numeric-input').val(userVal.timeOpen);
+  $('#cbox-input1').prop("checked", userVal.outdoorSeat);
+  $('#cbox-input2').prop("checked", userVal.pet);
+  $("#color-input").val(userVal.color);
+}
 
-// Task 5-6: Add a button trigger to log this form's object to console
+// Task 5-9: Add a button trigger to log this form's object to console
 $('button').click(function(e) {
-  if ($('#text-input1').val()=== "") {$('#text-input1').val(39.94405440404112);}
-  if ($('#text-input2').val()=== "") {$('#text-input2').val(-75.16556140272027);}
-  if ($('#text-input3').val()=== "") {$('#text-input3').val("Lombard/South Station");}
+  if ($('#text-input1').val()=== "" || isNaN ($('#text-input1').val())) {$('#text-input1').val(39.94405440404112);}
+  if ($('#text-input2').val()=== "" || isNaN ($('#text-input2').val())) {$('#text-input2').val(-75.16556140272027);}
+  if ($('#text-input3').val()=== "" || isNaN ($('#text-input3').val())) {$('#text-input3').val("Lombard/South Station");}
 
   var userInput = readInput();
   console.log(userInput);
+
+  // Archived circle marker code
 
   // var userIcon = L.circleMarker(
   //   [userInput.lat, userInput.lng], 
@@ -235,11 +247,19 @@ $('button').click(function(e) {
   // ).bindPopup(userInput.descrip);
   // userIcon.addTo(map);
 
+  // This icon is defined in the HTML
   var myIcon = L.divIcon({
     className: 'leaflet-marker-icon'
   });
   
   L.marker([userInput.lat, userInput.lng], {icon: myIcon}).addTo(map).bindPopup(userInput.descrip)
+
+  fillForm(userInput);
+  inputOut = readInput();
+  console.log("Check objects in/out are same: " + _.isEqual(userInput,inputOut));
   })
+
+  
+  
 
 });

@@ -243,6 +243,24 @@ $(document).ready(function() {
     console.log(dict);
     L.marker([dict.lat, dict.lon], {icon: greenIcon}).addTo(map);
 });
-  //task 7
-
+  //task 7 ?????
+  var userinput = $( "button" ).click(function() {
+    var dict = [];
+    if ($('#text-input1').val() == "some title"){
+      $('#text-input1').val(39.9522);
+    } else if ($('#text-input2').val() == "some name"){
+      $('#text-input2').val(-75.1927);
+    } else ($('#text-input3').val() == "some title"){
+      $('#text-input3').val("meyerson hall");
+    }
+    dict.push({
+      lat: $('#text-input1').val(),
+      lon: $('#text-input2').val(),
+      desc: $('#text-input3').val(),
+    })
+    dict = dict[0];
+    console.log(dict);
+    L.marker([dict.lat, dict.lon], {icon: greenIcon}).addTo(map);
 });
+});
+  //task 9??

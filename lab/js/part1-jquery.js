@@ -247,16 +247,88 @@ $(document).ready(function() {
     Lng: Number($('#numeric-input').val()),
     Severeness: $('#color-input').val(),
     Description: $('#text-input2').val()
-  })
-  
+  });
   var inputplace = place[0];
-  console.log(inputplace)
-  //var latlng= L.latLng(inputplace.Lat,inputplace.Lng);
-
+  console.log(inputplace);
   var marker = L.circleMarker([inputplace.Lat,inputplace.Lng]).bindPopup(inputplace.Description).addTo(map);
   marker.setStyle({color:inputplace.Severeness, fillColor: inputplace.Severeness, fillOpacity: 0.8})
-
 });
+
+  
+
+  //Task 7
+
+  $('button').click(function(){
+    var place=[];
+    place.push({
+      Lat: Number($('#text-input3').val()),
+      Lng: Number($('#numeric-input').val()),
+      Severeness: $('#color-input').val(),
+      Description: $('#text-input2').val()
+    });
+    var inputplace = place[0];
+    console.log(inputplace);
+    if(inputplace.Lat === 0 || inputplace.Lng === 0){L.circleMarker([39.95292876096764,-75.16348274508267]).bindPopup('Invalid Latitude or Longitude').addTo(map)}
+    else {var marker = L.circleMarker([inputplace.Lat,inputplace.Lng]).bindPopup(inputplace.Description).addTo(map);
+    marker.setStyle({color:inputplace.Severeness, fillColor: inputplace.Severeness, fillOpacity: 0.8})}
+  });
+
+
+  //Task 8
+
+  $('button').click(function(){
+    var place=[];
+    place.push({
+      Lat: Number($('#text-input3').val()),
+      Lng: Number($('#numeric-input').val()),
+      Severeness: $('#color-input').val(),
+      Description: $('#text-input2').val()
+    });
+    var inputplace = place[0];
+    console.log(inputplace);
+    if(inputplace.Lat === 0 || inputplace.Lng === 0){var defaultIcon= L.divIcon({className:'default-div-icon'});
+                                                     L.marker([39.95292876096764,-75.16348274508267],{icon: defaultIcon}).bindPopup('Invalid Latitude or Longitude2').addTo(map)}
+    else {var marker = L.circleMarker([inputplace.Lat,inputplace.Lng]).bindPopup(inputplace.Description).addTo(map);
+    marker.setStyle({color:inputplace.Severeness, fillColor: inputplace.Severeness, fillOpacity: 0.8})}
+  });
+
+
+  //Task 9
+
+
+   var fillform = function(inputform){
+
+       $('#text-input3').val(inputform.Lat)
+       $('#numeric-input').val(inputform.Lng)
+       $('#color-input').val(inputform.Severeness)
+       $('#text-input2').val(inputform.Description)
+
+       var output = [];
+       output.push({
+        Lat: Number($('#text-input3').val()),
+        Lng: Number($('#numeric-input').val()),
+        Severeness: $('#color-input').val(),
+        Description: $('#text-input2').val()
+       });
+
+       var outputform = output[0];
+       console.log("input form and output form is Equal",_.isEqual(inputform,outputform))
+      }
+
+    
+        //Test
+   var inputform = {
+     Lat: -32.333,
+     Lng: 78.989,
+     Severeness: '#000000',
+     Description: '123'
+   }
+
+   fillform(inputform)
+
+
+
+
 
   
   

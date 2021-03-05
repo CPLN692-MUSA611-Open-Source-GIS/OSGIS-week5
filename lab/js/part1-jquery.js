@@ -174,18 +174,18 @@ $(document).ready(function() {
   // Do your stuff here
   // call the items from the HTML using the ids and rename the 
   //pt 1
-  $('#text-label1').text('Neighborhood')
-  $('#text-label2').text('Type of food')
-  $('#text-label3').text('Owner')
+  $('#text-label1').text('Latitude')
+  $('#text-label2').text('Longitude')
+  $('#text-label3').text('Type of food')
   $('#number-label').text('Time of day opens')
   $('#checkbox-label1').text('Outdoor seating')
   $('#checkbox-label2').text('Pet friendly')
   $('#color-label').text('Building color')
 
   // pt 2
-  $('#text-input1').val('Center City')
-  $('#text-input2').val('American')
-  $('#text-input3').val('Starr')
+  $('#text-input1').val('Latitude Value')
+  $('#text-input2').val('Longitude Value')
+  $('#text-input3').val('American')
   $('#numeric-input').val('5')
   $('#cbox-input1').prop("checked", true)
   $('#cbox-input2').prop("checked", true)
@@ -195,6 +195,44 @@ $(document).ready(function() {
   // Write the code necessary to read from your input form and return a javascript object (with keys
   //  to clarify the meaning of each value) that has all the data that's stored in your form.
 
+  function readInput(){
+    var input = {
+      lat: $('#text-input1').val(),
+      lng: $('#text-input2').val(), 
+      typeFood: $('#text-input3').val(),
+      timeOpen: $('#numeric-input').val(),
+      outdoorSeat: $('#cbox-input1').prop('checked'),
+      pet: $('#cbox-input2').prop('checked'),
+      color: $('#color-input').val()
+    }
+    
+    return input;
+  }
+
+console.log(readInput());
+
+// Task 4: Enable user interaction with the form
+$('#text-input1').prop('disabled',false)
+$('#text-input2').prop('disabled',false)
+$('#text-input3').prop('disabled',false)
+$('#numeric-input').prop('disabled',false)
+$('#cbox-input1').prop('disabled',false)
+$('#cbox-input2').prop('disabled',false)
+
+
+// Task 5-6: Add a button trigger to log this form's object to console
+$('button').click(function(e) {
+
+  var userInput = readInput();
+  console.log(userInput);
+
+  var userIcon = L.circleMarker(
+    [userInput.lat, userInput.lng], 
+    {color: userInput.color}
+  ).bindPopup(userInput.typeFood);
+  userIcon.addTo(map);
+  
+});
 
 
 });

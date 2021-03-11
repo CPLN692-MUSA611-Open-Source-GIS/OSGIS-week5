@@ -2,15 +2,15 @@
   Set up our map
 ===================== */
 var map = L.map('map', {
-  center: [39.9522, -75.1639],
-  zoom: 14
+    center: [39.9523092490126, -75.19320297314758],
+    zoom: 16
 });
 var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  subdomains: 'abcd',
-  minZoom: 0,
-  maxZoom: 20,
-  ext: 'png'
+    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    subdomains: 'abcd',
+    minZoom: 0,
+    maxZoom: 20,
+    ext: 'png'
 }).addTo(map);
 
 /* =====================
@@ -171,5 +171,78 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // the function passed to `ready` until the HTML document is fully loaded and all scripts have
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
-  // Do your stuff here
+    // task 1
+    $('#text-label1').text('What is the name of your school?');
+    $('#text-label2').text('What is the latitude?');
+    $('#text-label3').text('What is the longitude?');
+    $('#number-label').text('What year did you begin attending this school?');
+    $('#checkbox-label1').text('Are you an undergraduate student?');
+    $('#checkbox-label2').text('Do you live on campus?');
+    $('#color-label').text('What is the primary school color?');
+    $('button').text('Plot!');
+
+    // task 2
+    $('#text-input1').val('ex. University of Pennsylvania');
+    $('#text-input2').val('ex. 39.95221');
+    $('#text-input3').val('ex. -75.19320');
+    $('#color-input').val('#990000');
+
+    // task 3
+    var dict = [];
+    dict.push({
+        school: $('#text-input1').val(),
+        lat: $('#text-input2').val(),
+        lon: $('#text-input3').val(),
+        start: $('#numberic-input').val(),
+        undergrad: $('#cbox-input1').prop('checked'),
+        dorm: $('#cbox-input2').prop('checked'),
+        color: $('#color-input').val()
+    });
+    dict = dict[0];
+
+    // task 4
+    $('#text-input1').prop('disabled', false);
+    $('#text-input2').prop('disabled', false);
+    $('#text-input3').prop('disabled', false);
+    $('#numeric-input').prop('disabled', false);
+    $('#cbox-input1').prop('disabled', false);
+    $('#cbox-input2').prop('disabled', false);
+
+    // task 5
+    $('button').click(function() {
+        var dict = []
+        dict.push({
+            school: $('#text-input1').val(),
+            lat: $('#text-input2').val(),
+            lon: $('#text-input3').val(),
+            start: $('#numberic-input').val(),
+            undergrad: $('#cbox-input1').prop('checked'),
+            dorm: $('#cbox-input2').prop('checked'),
+            color: $('#color-input').val()
+        });
+        dict = dict[0];
+        console.log(dict);
+        return dict
+    })
+
+    // task 6
+    var input = $('button').click(function() {
+        var dict = [];
+        dict.push({
+            school: $('#text-input1').val(),
+            lat: Number($('#text-input2').val()),
+            lon: Number($('#text-input3').val()),
+            start: $('#numberic-input').val(),
+            undergrad: $('#cbox-input1').prop('checked'),
+            dorm: $('#cbox-input2').prop('checked'),
+            color: $('#color-input').val()
+        });
+        dict = dict[0];
+        console.log(dict);
+
+        var myIcon = L.divIcon({ className: 'my-div-icon' });
+        L.marker([dict.lat, dict.lon], { icon: myIcon }).bindPopup(dict.desc).addTo(map);
+        $('.my-div-icon').css({ backgroundColor: dict.color, })
+        myIcon = L.divIcon()
+    })
 });

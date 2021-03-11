@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <!-- CSS Imports -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/leaflet.css" />
     <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- =====================
-      Add elements in this space
-      ====================== -->
+        <h1 id="main-heading">Basic Mapping App</h1>
+        <label id="url-label" for="url-input">Data URL</label>
+        <br>
+        <input id="url-input" class="input-text" type="text" placeholder="Paste URL here">
+        <br>
+        <br>
+        <label id="lat-field" for="lat-field-input">Latitude Field in Data</label>
+        <br>
+        <input id="lat-field-input" class="input-text" type="text" placeholder="i.e. LAT">
+        <br>
+        <br>
+        <label id="lon-field" for="lon-field-input">Longitude Field in Data</label>
+        <br>
+        <input id="lon-field-input" class="input-text" type="text" placeholder="i.e. LON">
+        <br>
+        <br>
+        <button>Add Point to Map</button>
     </div>
     <!-- Map -->
     <div id="map" class="map"></div>
@@ -20,5 +36,6 @@
     <script src="js/underscore.js"></script>
     <script src="js/leaflet.js"></script>
     <script src="js/main.js"></script>
-  </body>
+</body>
+
 </html>

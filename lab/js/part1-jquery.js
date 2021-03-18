@@ -172,4 +172,87 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
   // Do your stuff here
+  //Task 1
+  $('#main-heading').text('Restaruant')
+  $('#text-label1').text('Latitude')
+  $('#text-label2').text('Longitude')
+  $('#text-label3').text('Description')
+  $('#number-label').text('Score')
+  $('#checkbox-label1').text('Allow dine-in')
+  $('#checkbox-label2').text('Offer food delivery')
+  $('#color-label').text('Building color')
+  $('button').text('Submit')
+  
+  //Task 2
+  $('#text-input1').val("39.96000445664437")
+  $('#text-input2').val("-75.19063211752054")
+  $('#text-input3').val("Sabrina's Cafe")
+  $('#numeric-input').val(4.5)
+  $('#cbox-input1').prop('checked',true)
+  $('#cbox-input2').prop('checked',true)
+  $('#color-input').val('#739900')
+
+  //Task 3
+  function readInput(){
+    var obj = {
+      Lat: $('#text-input1').val(),
+      Lon: $('#text-input2').val(),
+      Description: $('#text-input3').val(),
+      score:$('#numeric-input').val(),
+      DineIn: $('#cbox-input1').prop('checked'),
+      delivery:$('#cbox-input2').prop('checked'),
+      color: $('#color-input').val()
+    };
+    return obj;
+  }
+  var res = readInput();
+  
+  //Task 4
+  $('#text-input1').prop('disabled', false)
+  $('#text-input2').prop('disabled', false)
+  $('#text-input3').prop('disabled', false)
+  $('#numeric-input').prop('disabled', false)
+  $('#cbox-input1').prop('disabled', false)
+  $('#cbox-input2').prop('disabled', false)
+  $('#color-input').prop('disabled', false)
+
+  //Task 5-8
+  $('button').click(function(){
+    if(res.Lat===""||res.lat< -90 || res.lat> 90){
+      console.log("The input latitude is invalid. Instead we use the default value");
+      res.Lat=39.96000445664437;
+    };
+    if(res.Lon===""||res.Lon< -180 || res.Lon> 180){
+      console.log("The input lontitude is invalid. Instead we use the default value")
+      res.Lon=-75.19063211752054;
+    }
+    console.log(res);
+
+    var myIcon = L.divIcon({
+      className: 'my-div-icon',
+      iconSize: [30, 42],
+      iconAnchor: [15, 42],
+      html:"<div style='background-color:"+res.color+";' class='marker-pin'></div>"  //change CSS so we can see the color
+    });
+    console.log(myIcon)
+    
+    //L.circleMarker([res.Lat, res.Lon],{color:res.color}).bindPopup(res.Description).addTo(map)
+    L.marker([res.Lat, res.Lon],{icon: myIcon}).bindPopup(res.Description).addTo(map); 
+  });
+
+  //task 9
+  function fillform(obj){
+    $('#text-input1').val(obj.Lat)
+    $('#text-input2').val(obj.Lon)
+    $('#text-input3').val(obj.Description)
+    $('#numeric-input').val(obj.score)
+    $('#cbox-input1').prop('checked',obj.DineIn)
+    $('#cbox-input2').prop('checked',obj.delivery)
+    $('#color-input').val(obj.color)
+  }
+  
+  res_new = readInput(fillform(res));
+  console.log('Same? '+ _.isEqual(res, res_new))
+
 });
+

@@ -170,6 +170,184 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // This is a popular pattern that you'll run into in programs that run jQuery. It says not to run
 // the function passed to `ready` until the HTML document is fully loaded and all scripts have
 // been interpreted. It is, therefore, an example of asynchronous behavior.
+
 $(document).ready(function() {
   // Do your stuff here
+
+  // Task 1 Set Useful Labels 
+
+  $('h1#main-heading').text("Log of Trader Joe's");
+  $('label#text-label1').text('Store Address:');
+  $('label#text-label2').text('Zip Code:');
+  $('label#text-label3').text('City:');
+  $('#number-label').text('Number of Reviews Received: ');
+  $('#checkbox-label1').text('Located in Pennsylvania?');
+  $('#checkbox-label2').text('In-Store Shopping Available?');
+  $('#button-submit').text('SUBMIT');
+  $('#color-label').text('Marker Color: ');
+
+  // Task 2 (Write) Input Values
+  $('input#text-input1').val('2121 Market St');
+  $('input#text-input2').val('19103');
+  $('input#text-input3').val('Philadelphia');
+  $('input#numeric-input').val(3455);
+  $('input#checkbox-label1').prop("checked", true);
+  $('input#checkbox-label2').prop("checked", false);
+  $("input#color-input").val("#aa2322");
+
+  // Task 3 (Read) Input Values 
+  // Task 7 Default Values Setup
+  readUserInput = () => {
+    let defaultData = {
+      "address": '2121 Market St',
+      "zipcode": '19103',
+      "city": 'Philadelphia',
+      "numOfReviews": 3455,
+      "locInPenn": true,
+      "inStoreShopping": false,
+      "markerColor": "#aa2322",
+      "lat": 39.9542908,
+      "lng": -75.1781519,
+      "description": "Grocery chain with a variety of signature items, plus produce, dairy, and more (most sell wine & beer)"
+    };
+    let data = {};
+    if (_.isEmpty($('input#text-input1').val())){ data.address = defaultData.address;}
+    else {data.address = $('input#text-input1').val();};
+    if (_.isEmpty($('input#text-input2').val())){ data.zipcode = defaultData.zipcode;}
+    else {data.zipcode = $('input#text-input2').val();};
+    if (_.isEmpty($('input#text-input3').val())){ data.city = defaultData.city;}
+    else {data.city = $('input#text-input3').val();};
+    if (_.isEmpty($('input#numeric-input').val())){ data.numOfReviews = defaultData.numOfReviews;}
+    else {data.numOfReviews = $('input#numeric-input').val();};
+    if (_.isEmpty($('input#cbox-input1').val())){ data.locInPenn = defaultData.locInPenn;}
+    else {data.locInPenn = $('input#cbox-input1').val();};
+    if (_.isEmpty($('input#cbox-input2').val())){ data.inStoreShopping = defaultData.inStoreShopping;}
+    else {data.inStoreShopping = $('input#cbox-input2').val();};
+    if (_.isEmpty($('input#color-input').val())){ data.markerColor = defaultData.markerColor;}
+    else {data.markerColor = $('input#color-input').val();};
+    if (_.isEmpty($('input#lat').val())){ data.lat = defaultData.lat;}
+    else {data.lat= $('input#lat').val();};
+    if (_.isEmpty($('input#lng').val())){ data.lng = defaultData.lng;}
+    else {data.lng= $('input#lng').val();};
+    if (_.isEmpty($('input#description').val())){ data.description = defaultData.description;}
+    else {data.description= $('input#description').val();};
+
+    return data;
+  }
+
+  // $('#button-submit').click(function(e) {
+
+  //   // Set up an object for input values
+  //   var appState = {
+  //     "lat": undefined,
+  //     "lon": undefined,
+  //     "landOwnerName": undefined,
+  //     "zipCode": undefined,
+  //     "address": undefined,
+  //     "appraisedLandValue": undefined,
+  //     "hasConservationEasement": false,
+  //     "isAgriculturalLand": false,
+  //     "description": undefined,
+  //     "colorInput": undefined
+  //   };
+
+  //   appState.lat = $('#lat-input').val();
+  //   console.log("Latitude:", appState.lat);
+
+  //   appState.lon = $('#lon-input').val();
+  //   console.log("Longitude:", appState.lon);   
+
+  //   appState.landOwnerName = $('#text-input1').val();
+  //   console.log("Landowner Name: ", appState.landOwnerName);
+  
+  //   appState.zipCode = $('#text-input2').val();
+  //   console.log("Zip Code: ", appState.zipCode);
+  
+  //   appState.address = $('#text-input3').val();
+  //   console.log("Address: ", appState.address);
+  
+  //   appState.appraisedLandValue = $('#numeric-input').val();
+  //   console.log("Appraised Land Value: $", appState.appraisedLandValue);
+
+  //   appState.description = $('#text-input4').val();
+  //   console.log("Description:", appState.description);
+
+  //   appState.colorInput = $('#color-input').val()
+  //   console.log("User Input Color:", appState.colorInput)
+
+  //   _.each($('input:checkbox:checked'), function(e){
+  //     appState[e.value] = true
+  //   })
+  //   console.log(appState)
+
+  //   if(_.isNull(appState.lat)){
+  //     console.log(appDefaultState)
+  //     console.log('User Input not Valid -> Missing Coordinates')
+  //   } else {
+  //   // Task 6 add marker to map
+  //   L.circleMarker([appState.lat, appState.lon], {color: appState.colorInput}).addTo(map).bindPopup(appState.description);
+  //   }
+  // });
+
+  // Task 4 Enable user interaction with the form
+    $('#text-input1').prop('disabled', false);
+    $('#text-input2').prop('disabled', false);
+    $('#text-input3').prop('disabled', false);
+    $('#numeric-input').prop('disabled', false);
+    $("#cbox-input1").prop("disabled", false);
+    $("#cbox-input2").prop("disabled", false);
+    $("#color-input").prop("disabled", false);
+
+  // Task 5 button trigger
+  // Task 6 plot marker
+  // Task 8 divIcon
+
+    // reference: https://stackoverflow.com/questions/9173182/add-remove-input-field-dynamically-with-jquery
+    $("button").remove() // temporarily remove the exisitng button to allow space for lat, lng, and description fields for input
+    $("div.sidebar").append('<br><label id="lngInput" for="lng">Longitude(X): </label> <input id="lng" type="number">')
+    $("div.sidebar").append('<br><br><label id="latInput" for="lat">Latitdude(Y): </label> <input id="lat" type="number">')
+    $("div.sidebar").append('<br><br><label id="txt" for="description">Description: </label> <input id="description" type="text">')
+    $("div.sidebar").append('<br><br><button>SUBMIT</button>')
+
+
+  $("button").click(function(){
+    userInput = readUserInput();
+    console.log(userInput);
+
+    var myIcon = L.divIcon({
+      className: 'leaflet-marker-icon', html: "<b stype = background-color: 'green'>Trader Joe's</b><br>@"+userInput.address
+    });
+
+    // default circle marker style with user-specified color 
+    // L.circleMarker([userInput.lat, userInput.lng], {color: userInput.color})
+    // .bindPopup("Trader Joe's <br>" + userInput.address + userInfo.description).addTo(map);
+ 
+    L.marker([userInput.lat, userInput.lng], {icon: myIcon})
+    .bindPopup(userInput.description).addTo(map);
+  });
+
+  // Task 9 function input
+  let autoFillForm = (inputs) => {
+    $("input#text-input1").val(inputs.address)
+    $("input#text-input2").val(inputs.zipcode)
+    $("input#text-input3").val(inputs.city)
+    $("input#numeric-input").val(inputs.numOfReviews)
+    $("input#cbox-input1").prop("checked", inputs.locInPenn)
+    $("input#cbox-input2").prop("checked", inputs.inStoreShopping)
+    $("input#color-input").val(inputs.markerColor)
+    $("input#lng").val(inputs.lng.valueAsNumber)
+    $("input#lat").val(inputs.lat.valueAsNumber)
+    $("input#description").val(inputs.description)
+  }
+
+  userInfo1 = readUserInput()
+  autoFillForm(userInfo1)
+  userInfo2 = readUserInput()
+  console.log(userInfo1)
+  console.log(userInfo2)
+  console.log("Functions work appropriately", _.isEqual(userInfo1, userInfo2))
+  
 });
+
+
+

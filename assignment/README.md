@@ -48,6 +48,6 @@ to variables. Those variables should be used in your application to replace
 previously hardcoded data. Even though I counsel avoiding side-effects, this is
 an exception to the rule!
 
-Hint: review the structure of lab 3 from week 4 - it uses many of these same
+Hint: review the structure of lab 2 part 3 from week 4 - it uses many of these same
 components!
 

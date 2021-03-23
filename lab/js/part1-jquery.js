@@ -173,3 +173,115 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 $(document).ready(function() {
   // Do your stuff here
 });
+
+//task 1
+$('#text-label1').text('Longitude')
+$('#text-label2').text('Latitude')
+$('#text-label3').text('What is the address of your school?')
+$('#number-label').text('What year did you start attending school?')
+$('#checkbox-label1').text('Are you in High School?')
+$('#checkbox-label2').text('Did you graduate?')
+$('#color-label').text('What is the color of your mascot?')
+$('button').text('Run the filter!')
+
+//task 2
+$('#text-input1').val("64")
+$('#text-input2').val("40")
+$('#text-input3').val(" ex. 6425 Fifth Ave")
+$('#numeric-input').val('ex 1995')
+$('#checkbox-input1').val('Are you in High School?')
+$('#checkbox-input2').val('Did you graduate?')
+$('#color-input').val('What is the color of your mascot?')
+
+//Task 3
+
+$('#text-input1').prop('disabled', false);
+$('#text-input2').prop('disabled', false);
+$('#text-input3').prop('disabled', false);
+$('#numeric-input').prop('disabled', false);
+$('#cbox-input1').prop('disabled', false);
+$('#cbox-input2').prop('disabled', false);
+$("#color-input").prop('disabled', false);
+
+$('button').click( function () {
+    
+
+  dict={
+    lat: $('#text-input1').val(),
+    long: $('#text-input2').val(),
+    addressstreet: $('#text-input3').val(),
+    yearnumber: $('#numeric-input').val(),
+    isgraduating: $('#cbox-input1').prop('checked'),
+    islegacy: $('#cbox-input2').prop('checked'),
+    color: $('#color-input').val()
+
+
+  };
+console.log(dict)
+
+//Task 6
+
+if (dict.lat === ""){dict.lat= 0} else {dict.lat = Number(dict.lat)}
+if (dict.long === ""){dict.long=0} else {dict.long = Number(dict.lat)}
+if (dict.addressstreet === ""){dict.addressstreet= 'default address'}
+if (dict.yearnumber === ""){dict.yearnumber= 'default number'}
+if (dict.isgraduating === ""){dict.isgraduating= 'default is graduating'}
+if (dict.islegacy === ""){dict.islegacy= 'default legacy'}
+if (dict.color === ""){dict.color = 'default color'}
+
+
+    //original
+    // L.circleMarker([dict.lat,dict.long], {color: dict.color}).bindPopup(dict.num + " "+ dict.desc).addTo(map);
+    
+    myIcon = L.divIcon ()
+  var myIcon = L.divIcon({className: 'my-div-icon'});
+  $('.my-div-icon')
+  
+  L.marker([dict.lat,dict.long], {icon: myIcon}).bindPopup(dict.addressstreet + " "+ dict.addressnumber).addTo(map);
+  $('.my-div-icon').css({backgroundColor: dict.color, borderRadius: '50%', opacity:0.5})
+
+
+  // Task 7: Use default values
+  // We don't want the application to crash if our user fails to enter values for every field. Add
+  // whatever logic is necessary to set default values if a field is empty.
+
+  // Task 8: Try Leaflet's divIcon
+  //   Instead of using a default leaflet marker or a circleMarker, try using a L.divIcon. A div icon
+  //   is just an HTML <div> element on which CSS can be applied (HINT: background-color or
+  //   background-image are necessary if you want to see the icon). When you've successfully implemented
+  //   a divIcon, you should be able to grab it by reference to its class: 'leaflet-marker-icon'. So,
+  //   in jQuery, $('.leaflet-marker-icon').
+
+
+
+  // Task 9: Make a parametric function (one that accepts parameters/arguments) to fill the form out.
+  //   At this point, we have an object which corresponds to a (at least partially) filled out form.
+  //   That being so, we should be able to write a function that accepts, as an argument,
+  //   one of those objects and properly fills out the form to match the values of that object. Try to
+  //   update the code below so that an object entered into your form-filling function is stored on the
+  //   HTML and fully reconstituted by the code you've written to read from the form.
+
+  Filloutform = function(formobject){
+      $('#text-input1').val(formobject.long)
+      $('#text-input2').val(formobject.lat)
+      $('#text-input3').val(formobject.addressstreet)
+      $('#numeric-input').val(formobject.yearnumber)
+      $('#cbox-input1').prop('checked')
+      $('#cbox-input2').prop('checked')
+      $('#color-input').val(dict.color)
+
+//       if (dict.addressstreet === ""){dict.addressstreet= 'default address'}
+// if (dict.addressnumber === ""){dict.addressnumber= 'default number'}
+// if (dict.isgraduating === ""){dict.isgraduating= 'default is graduating'}
+// if (dict.islegacy === ""){dict.islegacy= 'default legacy'}
+// if (dict.color === ""){dict.color = 'default color'}
+  
+  }
+  
+  Filloutform(dict)
+
+
+  // {icon: L.icon({  //load icon for dentist
+  //   iconColor: 'green', iconSize: [25, 25]})}
+
+});

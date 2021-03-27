@@ -172,4 +172,24 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
   // Do your stuff here
+   //Task 1
+   $("h1#main-heading").text("Pick a restaurant in Philadelphia")
+   $("label#text-label1").text("Your street name")
+   $("label#text-label2").text("Your favorite food")
+   $("label#text-label3").text("Preferred type of food")
+   $("label#number-label").text("How many people will go with you?")
+   $("label#checkbox-label1").text("Expected price > $30 per person")
+   $("label#checkbox-label2").text("Expected price < $30 per person")
+   $("label#color-label").text("Pick a color for marks")
+   $("button").text("START")
+ 
+   //Task 2
+   $("input#text-input1").val("e.g. Vine Street")
+   $("input#text-input2").val("e.g. Fried Chicken")
+   $("input#text-input3").val("e.g. Italian")
+   $("input#numeric-input").val(2)
+   $("input#cbox-input1").prop( "checked", false)
+   $("input#cbox-input2").prop( "checked", true)
+   $("input#color-input").val("#FFFFFF")
+ 
 });

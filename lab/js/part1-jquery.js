@@ -172,4 +172,46 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
   // Do your stuff here
+   //Task 1
+   $("h1#main-heading").text("Pick a restaurant in Philadelphia")
+   $("label#text-label1").text("Your street name")
+   $("label#text-label2").text("Your favorite food")
+   $("label#text-label3").text("Preferred type of food")
+   $("label#number-label").text("How many people will go with you?")
+   $("label#checkbox-label1").text("Expected price > $30 per person")
+   $("label#checkbox-label2").text("Expected price < $30 per person")
+   $("label#color-label").text("Pick a color for marks")
+   $("button").text("SEARCH")
+ 
+   //Task 2
+   $("input#text-input1").val("e.g. Vine Street")
+   $("input#text-input2").val("e.g. Fried chicken")
+   $("input#text-input3").val("e.g. Italian")
+   $("input#numeric-input").val(1)
+   $("input#cbox-input1").prop( "checked", false)
+   $("input#cbox-input2").prop( "checked", true)
+   $("input#color-input").val("#FFFFFF")
+ 
+   //Task 3
+   Input = () => {
+     let input=[]
+    input.streetName = $("input#text-input1").val()
+    input.favorFood = $("input#text-input2").val()
+    input.prefType = $("input#text-input3").val()
+    input.numPeople = $("input#numeric-input").val()
+    input.morethan30 = $("input#cbox-input1").prop("checked")
+    input.lessthan30 = $("input#cbox-input2").prop("checked")
+    input.color = $("input#color-input").val()
+   }
+
+   //Task 4
+   $('input#text-input1').prop('disabled', false);
+   $('input#text-input2').prop('disabled', false);
+   $('input#text-input3').prop('disabled', false);
+   $('input#numeric-input').prop('disabled', false);
+   $('input#cbox-input1').prop('disabled', false);
+   $('input#cbox-input2').prop('disabled', false);
+   $('input#color-input').prop('disabled', false);
+
+
 });

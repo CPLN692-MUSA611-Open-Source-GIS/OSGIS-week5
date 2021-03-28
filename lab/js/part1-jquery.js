@@ -173,35 +173,55 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 $(document).ready(function() {
   // Do your stuff here
    //Task 1
-   $("h1#main-heading").text("Pick a restaurant in Philadelphia")
-   $("label#text-label1").text("Your street name")
-   $("label#text-label2").text("Your favorite food")
+   $("h1#main-heading").text("Order takeout in Philadelphia")
+   $("label#text-label1").text("LAT of your location")
+   $("label#text-label2").text("LNG of your location")
    $("label#text-label3").text("Preferred type of food")
-   $("label#number-label").text("How many people will go with you?")
+   $("label#number-label").text("How long do you expect to wait (minutes)?")
    $("label#checkbox-label1").text("Expected price > $30 per person")
    $("label#checkbox-label2").text("Expected price < $30 per person")
    $("label#color-label").text("Pick a color for marks")
-   $("button").text("SEARCH")
- 
+   $("button").text("PLOT")
+   
    //Task 2
-   $("input#text-input1").val("e.g. Vine Street")
-   $("input#text-input2").val("e.g. Fried chicken")
-   $("input#text-input3").val("e.g. Italian")
-   $("input#numeric-input").val(1)
+   $("input#text-input1").val("39.9522")
+   $("input#text-input2").val("-75.1639")
+   $("input#text-input3").val("Chinese")
+   $("input#numeric-input").val(60)
    $("input#cbox-input1").prop( "checked", false)
    $("input#cbox-input2").prop( "checked", true)
-   $("input#color-input").val("#FFFFFF")
+   $("input#color-input").val("#AFF349")
  
-   //Task 3
-   Input = () => {
+   //Task 3 + Task 7
+   readInput = function(){
      let input=[]
-    input.streetName = $("input#text-input1").val()
-    input.favorFood = $("input#text-input2").val()
-    input.prefType = $("input#text-input3").val()
-    input.numPeople = $("input#numeric-input").val()
+     if ($("input#text-input1").val()==""){
+      input.lat= 39.9522
+     }else{
+      input.lat = $("input#text-input1").val()
+     }
+
+     if ($("input#text-input2").val()==""){
+       input.lng = -75.1639
+     }else{
+      input.lng = $("input#text-input2").val()
+     }
+
+     if($("input#text-input3").val()==""){
+       input.prefType = "Chinese"
+     }else{
+      input.prefType = $("input#text-input3").val()
+     }
+
+    input.waitMin = $("input#numeric-input").val()
+
     input.morethan30 = $("input#cbox-input1").prop("checked")
+
     input.lessthan30 = $("input#cbox-input2").prop("checked")
+
     input.color = $("input#color-input").val()
+    
+    return input
    }
 
    //Task 4
@@ -212,6 +232,22 @@ $(document).ready(function() {
    $('input#cbox-input1').prop('disabled', false);
    $('input#cbox-input2').prop('disabled', false);
    $('input#color-input').prop('disabled', false);
+
+  //Task 5 + Task 6 + Task 8
+  //Add a button trigger to log this form's object to console
+   $('button').click(function(){
+     input = readInput()
+     //Plot input data to the map on button click
+     //var marker = L.circleMarker([input.lat,input.lng]).bindPopup(input.prefType).addTo(map);
+     //marker.setStyle({color:input.color, fillColor:input.color, fillOpacity: 0.72})
+     
+     //Try Leaflet's divIcon
+     var myIcon = L.divIcon({className: 'demo-marker'});
+     L.marker([input.lat, input.lng],{icon: myIcon}).bindPopup(input.prefType).addTo(map)
+     $('.demo-marker').css({backgroundColor :$('input#color-inputt').val()})
+   });
+
+
 
 
 });

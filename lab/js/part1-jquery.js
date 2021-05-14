@@ -171,5 +171,108 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // the function passed to `ready` until the HTML document is fully loaded and all scripts have
 // been interpreted. It is, therefore, an example of asynchronous behavior.
 $(document).ready(function() {
-  // Do your stuff here
-});
+   //task 1
+   $('#text-label1').text('Latitude: ')
+   $('#text-label2').text('Longitude: ')
+   $('#text-label3').text('Description: ')
+   $('#number-label').text('Zip Code: ')
+   $('#checkbox-label1').text('Is station empty: ')
+   $('#checkbox-label2').text('Is station full: ')
+   $('#color-label').text('Color of bike: ')
+   $('button').text('submit ')
+ 
+   //task2
+   $('#text-input1').val(39.953285318225)
+   $('#text-input2').val(-75.1635274781051)
+   $('#text-input3').val('City Hall')
+   $('#numeric-input').val(19103)
+   //$('#color-input').val('#031620') //not working
+   $('#cbox-input1').prop('checked', true)
+ 
+   //task3
+   function getInput(){
+       var input = {
+           lat: $('#text-input1').val(),
+           lng: $('#text-input2').val(),
+           description: $('#text-input3').val(),
+           zip: $('#numeric-input').val(),
+           isEmpty: $('#cbox-input1').is(":checked"),
+           isFull: $('#cbox-input2').is(":checked"),
+           color: $('#color-input').val()
+       }
+ 
+       return input;
+   }
+ 
+ 
+   console.log(getInput())
+ 
+   //task4 make webapp interactive
+   $('#text-input1').prop('disabled', false)
+   $('#text-input2').prop('disabled', false)
+   $('#text-input3').prop('disabled', false)
+   $('#numeric-input').prop('disabled', false)
+   $('#cbox-input1').prop('disabled', false)
+   $('#cbox-input2').prop('disabled', false)
+   $('#color-input').prop('disabled', false)
+ 
+   //task5,6,7 click function
+   $("button").click(function(){
+       if ($('#text-input1').val() ==="" || $('#text-input2').val() ==="") {
+           alert("You did not enter a valid latitude or longitude, we will set a default for you!")
+           $('#text-input1').val(39.953285318225)
+           $('#text-input2').val(-75.1635274781051)
+           $('#text-input3').val('City Hall')
+       }
+ 
+       var object = getInput()
+       console.log(object)
+ 
+       var myIcon = L.divIcon({
+           className: 'my-div-icon',
+           iconSize: [30, 42],
+           html: "<div style='background-color:${object.color}'></div><i stype='color:${object.color}'>ICON</i>" //set color not working
+       });
+ 
+       var latlng = L.latLng(parseFloat(object.lat), parseFloat(object.lng))
+       // L.circleMarker(latlng, {
+       //     radius: 10,
+       //     color: object.color,
+       //     fillColor: object.color}
+       // ).addTo(map).bindPopup(object.description)
+       L.marker(latlng, {icon: myIcon}).addTo(map).bindPopup(object.description)
+ 
+ 
+   })
+ 
+   //task9 get an object then map it
+   function fillInfo(obj){
+       $('#text-input1').val(obj.lat)
+       $('#text-input2').val(obj.lng)
+       $('#text-input3').val(obj.description)
+       $('#numeric-input').val(obj.zip)
+       $('#cbox-input1').prop('checked', obj.isEmpty)
+       $('#cbox-input2').prop('checked', obj.isFull)
+       $('#color-input').val(obj.color)
+ 
+       //check input equal to dataAttr
+       var input = getInput()
+       console.log(input)
+       console.log(obj)
+       console.log(_.isEqual(input, obj))
+   }
+ 
+   // test
+   var uniqlo = {
+       lat: "39.95152171896275",
+       lng: "-75.16772526400675",
+       description: "Uniqlo",
+       zip: "19103",
+       isEmpty: false,
+       isFull: true,
+       color: "#00FF00"
+   }
+   fillInfo(uniqlo)
+ 
+ 
+ });
